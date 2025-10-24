@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }} - Eruvaka{% endblock %}
+
+{% block nav_products %}font-bold text-[#B32413]{% endblock %}
+
+{% block content %}
+<main>
+    <!-- Breadcrumb Section -->
+    <section class="overflow-hidden px-5 md:px-20 py-8 md:py-10">
+      <div class="container mx-auto">
+        <div class="relative bg-white rounded-2xl overflow-hidden shadow-sm">
+          <div class="relative flex items-center justify-between px-10 py-10">
+            <img src="{% static 'images/bg_image.png' %}" alt="" class="absolute left-0 w-full object-cover opacity-15">
+            <div class="z-10">
+              <h1 class="text-2xl md:text-4xl font-bold mb-3" style="letter-spacing: 2px;">
+                <span class="text-[#346e49]">Product</span> <span class="text-[#B32413]">Details</span>
+              </h1>
+              <p class="text-[10px] md:text-sm text-gray-600 font-medium">
+                <a href="{% url 'home' %}" class="text-[#B32413] hover:underline">Home</a> &nbsp;> &nbsp;
+                <a href="{% url 'product-list' %}" class="text-[#B32413] hover:underline">Products</a> &nbsp;> &nbsp;
+                <span class="text-gray-800">{{ product.name }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Product Detail Section -->
+    <section class="py-12 bg-white">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <!-- Product Image -->
+          <div class="flex justify-center items-center">
+            <div class="w-full max-w-lg">
+              <div class="relative aspect-square w-full overflow-hidden rounded-lg bg-[#D3EEE3] shadow-lg">
+                {% if product.static_image %}
+                  <img src="{% static 'images/' %}{{ product.static_image }}" alt="{{ product.name }}" class="h-full w-full object-contain p-8" />
+                {% else %}
+                  <img src="{% static 'images/spices.png' %}" alt="{{ product.name }}" class="h-full w-full object-contain p-8" />
+                {% endif %}
+                
+                {% if product.Best_Sellers %}
+                <span class="absolute top-4 left-4 bg-[#B32413] text-white px-4 py-2 rounded-md text-sm font-semibold shadow-lg">
+                  Best Seller
+                </span>
+                {% endif %}
+                
+                {% if product.New_Arrivals %}
+                <span class="absolute top-4 right-4 bg-[#346e49] text-white px-4 py-2 rounded-md text-sm font-semibold shadow-lg">
+                  New
+                </span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          
+          <!-- Product Info -->
+          <div class="flex flex-col justify-center">
+            <div class="mb-4">
+              <span class="inline-block bg-[#D3EEE3] text-[#346e49] px-3 py-1 rounded-full text-sm font-semibold">
+                {{ product.category.name }}
+              </span>
+            </div>
+            
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              {{ product.name }}
+            </h1>
+            
+            {% if product.ratings %}
+            <div class="flex items-center mb-6">
+              <div class="flex items-center">
+                {% for i in "12345" %}
+                  {% if forloop.counter <= product.ratings %}
+                    <svg class="h-5 w-5 text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  {% else %}
+                    <svg class="h-5 w-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  {% endif %}
+                {% endfor %}
+              </div>
+              <span class="ml-2 text-gray-600 text-sm">({{ product.ratings }} stars)</span>
+            </div>
+            {% endif %}
+            
+            <div class="mb-6">
+              <div class="flex items-baseline gap-3">
+                <span class="text-4xl font-bold text-[#B32413]">Rs. {{ product.price }}</span>
+                {% if product.old_price and product.old_price > 0 %}
+                  <span class="text-2xl text-gray-400 line-through">Rs. {{ product.old_price }}</span>
+                  <span class="bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">
+                    Save Rs. {{ product.old_price|add:"-"|add:product.price|floatformat:0 }}
+                  </span>
+                {% endif %}
+              </div>
+            </div>
+            
+            <div class="mb-6">
+              <label for="quantity" class="block text-sm font-medium text-gray-700 mb-2">Quantity</label>
+              <div class="flex items-center gap-4">
+                <input 
+                  type="number" 
+                  id="quantity" 
+                  value="1" 
+                  min="1" 
+                  class="w-20 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#346e49]"
+                />
+                <div class="relative flex-1 max-w-xs">
+                  <select class="block w-full appearance-none rounded-lg border border-gray-300 bg-white py-3 pl-4 pr-10 text-gray-700 shadow-sm focus:border-[#346e49] focus:outline-none focus:ring-2 focus:ring-[#346e49]">
+                    <option>500 gm</option>
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>5 kg</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-700">
+                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex gap-4 mb-8">
+              <button class="flex-1 bg-[#346e49] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#2a593a] transition-colors shadow-lg flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                Add to Cart
+              </button>
+              <button class="bg-white border-2 border-[#346e49] text-[#346e49] px-6 py-4 rounded-lg font-semibold hover:bg-[#346e49] hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </button>
+            </div>
+            
+            <div class="border-t pt-6">
+              <h3 class="text-lg font-semibold mb-3">Product Information</h3>
+              <ul class="space-y-2 text-gray-600">
+                <li class="flex items-center gap-2">
+                  <svg class="h-5 w-5 text-[#346e49]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  100% Natural & Fresh
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg class="h-5 w-5 text-[#346e49]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  Farm Fresh Quality
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg class="h-5 w-5 text-[#346e49]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  Free Delivery Available
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Related Products Section -->
+    {% if related_products %}
+    <section class="py-16 bg-gray-50">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+          <h2 class="text-3xl font-bold">
+            <span class="text-[#B32413]">Related</span>
+            <span class="text-[#346e49]"> Products</span>
+          </h2>
+        </div>
+        
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {% for item in related_products %}
+          <a href="{% url 'product-detail' item.slug %}" class="rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-lg transition-shadow">
+            <div class="relative aspect-square w-full overflow-hidden rounded-t-lg bg-[#D3EEE3]">
+              {% if item.static_image %}
+                <img src="{% static 'images/' %}{{ item.static_image }}" alt="{{ item.name }}" class="h-full w-full object-contain" />
+              {% else %}
+                <img src="{% static 'images/spices.png' %}" alt="{{ item.name }}" class="h-full w-full object-contain" />
+              {% endif %}
+            </div>
+            
+            <div class="p-4">
+              <p class="text-sm text-gray-500">{{ item.category.name }}</p>
+              <h3 class="text-lg font-semibold text-gray-800">{{ item.name }}</h3>
+              <div class="mt-2">
+                <span class="text-xl font-bold text-[#B32413]">Rs. {{ item.price }}</span>
+                {% if item.old_price and item.old_price > 0 %}
+                  <span class="text-sm text-gray-400 line-through ml-2">Rs. {{ item.old_price }}</span>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+    {% endif %}
+  </main>
+{% endblock %}

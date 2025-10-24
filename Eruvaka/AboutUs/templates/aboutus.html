@@ -1,0 +1,360 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Eruvaka - About Us{% endblock %}
+
+{% block nav_about %}font-bold text-[#B32413]{% endblock %}
+
+{% block content %}
+    <main>
+        <section class="overflow-hidden px-5 md:px-20 py-8 md:py-15">
+            <div class="container mx-auto">
+                <div class="relative bg-white rounded-2xl overflow-hidden shadow-sm">
+                    <div class="relative flex items-center justify-between px-10 py-14">
+                        <img src="{% static 'images/bg_image.png' %}" alt="" class="absolute left-0 w-full object-cover opacity-15">
+                        <div class="z-10">
+                            <h1 class="text-2xl md:text-5xl font-bold mb-3" style="letter-spacing: 2px;">
+                                <span class="text-[#346e49]">ABOUT</span> <span class="text-[#B32413]">US</span>
+                            </h1>
+                            <p class="text-[10px] md:text-sm text-gray-600 font-medium">
+                                <span class="text-[#B32413]">Home</span> &nbsp;> &nbsp;<span class="text-gray-800">About
+                                    Us</span>
+                            </p>
+                        </div>
+                        <div class="hidden absolute right-10 lg:right-40 top-0 bottom-0 md:flex items-center">
+                            <img src="{% static 'images/bullock.png' %}" alt="Bullocks drawing" class="object-contain max-w-60 rotate">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container mx-auto px-4 md:px-8 py-8 lg:px-20">
+            <div class="flex flex-col md:flex-row gap-12 items-start">
+                <div class="md:w-2/5 my-auto">
+                    <img src="{% static 'images/spices.png' %}" alt="Spices" class="rounded-xl shadow-lg object-cover">
+                </div>
+                <div class="md:w-3/5">
+                    <div class="flex items-center justify-center gap-4 md:gap-8 py-0.5">
+                        <div class="w-full max-w-xs sm:max-w-sm md:max-w-md">
+                            <div class="h-[2px] bg-[#B32413]"></div>
+                            <div class="h-[2px] bg-[#346e49] mt-0.5"></div>
+                        </div>
+
+                        <h2 class="flex-shrink-0 text-2xl lg:text-3xl font-extrabold uppercase whitespace-nowrap">
+                            <span class="text-[#346e49]"> Welcome to</span>
+                            <span class="text-[#B32413]">Eruvaka</span>
+                        </h2>
+
+                        <div class="w-full max-w-xs sm:max-w-sm md:max-w-md">
+                            <div class="h-[2px] bg-[#B32413]"></div>
+                            <div class="h-[2px] bg-[#346e49] mt-0.5"></div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 leading-relaxed mb-4 text-justify">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                        voluptate id est laborum.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed mb-6 text-justify">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+                        voluptate labore et dolore magna aliqua, ut id est laborum.
+                    </p>
+                    <div class="hidden mt-6 lg:flex flex-col md:flex-row justify-center gap-8">
+                        <img src="{% static 'images/spices1.png' %}" alt="Food" class="max-h-60 shadow-md">
+                        <img src="{% static 'images/spices2.png' %}" alt="Food" class="max-h-60 shadow-md">
+                        <img src="{% static 'images/spices3.png' %}" alt="Food" class="max-h-60 shadow-md">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-8 md:py-15 relative bg-[#d4f4dd]">
+            <div class="container mx-auto px-8 md:px-10 lg:px-20 text-center">
+                <div class="pb-8 flex items-center justify-center gap-4 md:gap-8">
+                    <div class="w-full max-w-xs sm:max-w-sm md:max-w-md">
+                        <div class="h-[2px] bg-[#B32413]"></div>
+                        <div class="h-[2px] bg-[#346e49] mt-0.5"></div>
+                    </div>
+
+                    <h2 class="flex-shrink-0 text-2xl md:text-3xl font-extrabold uppercase whitespace-nowrap">
+                        <span class="text-[#B32413]">What We</span>
+                        <span class="text-[#346e49]"> Provide?</span>
+                    </h2>
+
+                    <div class="w-full max-w-xs sm:max-w-sm md:max-w-md">
+                        <div class="h-[2px] bg-[#B32413]"></div>
+                        <div class="h-[2px] bg-[#346e49] mt-0.5"></div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                        <div class="pt-8 pb-6">
+                            <div class="w-20 h-20 bg-[#FFE2E3] rounded-full mx-auto flex items-center justify-center">
+                                <img src="{% static 'images/bestprices.png' %}" alt="" class="object-cover max-w-10">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg mb-3 text-green-700">BEST PRICES & OFFERS</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">There are many variations of passages of
+                                Lorem Ipsum available, but the majority have suffered alteration in some form</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                        <div class="pt-8 pb-6">
+                            <div class="w-20 h-20 bg-[#FFE2E3] rounded-full mx-auto flex items-center justify-center">
+                                <img src="{% static 'images/wideassorment.png' %}" alt="" class="object-cover max-w-10">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg mb-3 text-green-700">WIDE ASSORTMENT</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">There are many variations of passages of
+                                Lorem Ipsum available, but the majority have suffered alteration in some form</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                        <div class="pt-8 pb-6">
+                            <div class="w-20 h-20 bg-[#FFE2E3] rounded-full mx-auto flex items-center justify-center">
+                                <img src="{% static 'images/freedelivery.png' %}" alt="" class="object-cover max-w-10">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg mb-3 text-green-700">FREE DELIVERY</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">There are many variations of passages of
+                                Lorem Ipsum available, but the majority have suffered alteration in some form</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                        <div class="pt-8 pb-6">
+                            <div class="w-20 h-20 bg-[#FFE2E3] rounded-full mx-auto flex items-center justify-center">
+                                <img src="{% static 'images/freedelivery.png' %}" alt="" class="object-cover max-w-10">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg mb-3 text-green-700">EASY RETURNS</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">There are many variations of passages of
+                                Lorem Ipsum available, but the majority have suffered alteration in some form</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                        <div class="pt-8 pb-6">
+                            <div class="w-20 h-20 bg-[#FFE2E3] rounded-full mx-auto flex items-center justify-center">
+                                <img src="{% static 'images/satisfaction.png' %}" alt="" class="object-cover max-w-10">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg mb-3 text-green-700">100% SATISFACTION</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">There are many variations of passages of
+                                Lorem Ipsum available, but the majority have suffered alteration in some form</p>
+                        </div>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="bg-white rounded-2xl shadow-md overflow-hidden">
+                        <div class="pt-8 pb-6">
+                            <div class="w-20 h-20 bg-[#FFE2E3] rounded-full mx-auto flex items-center justify-center">
+                                <img src="{% static 'images/greatdeal.png' %}" alt="" class="object-cover max-w-10">
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-bold text-lg mb-3 text-green-700">GREAT DAILY DEAL</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">There are many variations of passages of
+                                Lorem Ipsum available, but the majority have suffered alteration in some form</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="p-8 md:p-10 lg:p-20 bg-white">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 flex gap-4">
+                    <div class="flex justify-center items-center">
+                        <img src="{% static 'images/pouringoil.png' %}" class="rounded-lg shadow-lg object-cover " alt="Cooking">
+                    </div>
+                    <img src="{% static 'images/firespices.png' %}" class="rounded-lg shadow-lg max-w-70 object-cover" alt="Spices on Fire">
+                </div>
+                <div class="md:w-1/2">
+                    <p class="text-xs md:text-base font-semibold text-gray-500">OUR PERFORMANCE</p>
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight my-3"><span
+                            class="text-[#346e49]">Fresh,
+                            Pure, and
+                            Authentic– <br> The </span><span class="text-[#B32413]">True Taste of
+                            <br> Tradition</span>
+                    </h2>
+                    <p class="text-sm md:text-base text-gray-600 mb-4">Ed ut perspiciatis unde omnis iste natus error
+                        sit voluptatem
+                        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illoinventore veritatis
+                        et quasi architecto</p>
+                    <p class="text-sm md:text-base text-gray-600">Ed ut perspiciatis unde omnis iste natus error sit
+                        voluptatem accusantium
+                        doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illoinventore veritatis et quasi
+                        architecto</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-[#D3EEE3] p-8 md:p-15">
+            <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+                <div>
+                    <h3 class="font-bold text-lg mb-2 text-[#346e49]">WHO WE ARE</h3>
+                    <p class="text-sm md:text-base text-gray-600">Volutpat diam ut venenatis tellus in metus. Nec dui
+                        nuncmattis enim
+                        ut tellus eros donec ac odio orci ultrices in.ellus eros donec ac odio orci ultrices in.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-2 text-[#346e49]">OUR HISTORY</h3>
+                    <p class="text-sm md:text-base text-gray-600">Volutpat diam ut venenatis tellus in metus. Nec dui
+                        nuncmattis enim
+                        ut tellus eros donec ac odio orci ultrices in.ellus eros donec ac odio orci ultrices in.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-2 text-[#346e49]">OUR MISSION</h3>
+                    <p class="text-sm md:text-base text-gray-600">Volutpat diam ut venenatis tellus in metus. Nec dui
+                        nuncmattis enim
+                        ut tellus eros donec ac odio orci ultrices in.ellus eros donec ac odio orci ultrices in.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="p-8 md:p-20 bg-white">
+            <div class="pb-8 flex items-center justify-center gap-4 md:gap-8">
+                <div class="w-full max-w-xs sm:max-w-sm md:max-w-md">
+                    <div class="h-[2px] bg-[#B32413]"></div>
+                    <div class="h-[2px] bg-[#346e49] mt-0.5"></div>
+                </div>
+
+                <h2 class="flex-shrink-0 text-2xl md:text-3xl font-extrabold uppercase whitespace-nowrap">
+                    <span class="text-[#B32413]">Our</span>
+                    <span class="text-[#346e49]">Team</span>
+                </h2>
+
+                <div class="w-full max-w-xs sm:max-w-sm md:max-w-md">
+                    <div class="h-[2px] bg-[#B32413]"></div>
+                    <div class="h-[2px] bg-[#346e49] mt-0.5"></div>
+                </div>
+            </div>
+            <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 text-center md:text-left">
+                    <p class="text-xs md:text-base font-semibold text-gray-500">OUR TEAM</p>
+                    <h3 class="text-2xl md:text-3xl lg:text-3xl font-bold mb-4"><span class="text-[#346e49]">Meet Our
+                            Expert
+                            <br></span><span class="text-[#B32413]">Team</span>
+                    </h3>
+                    <p class="text-gray-600 text-sm md:text-base mb-4">Proin ullamcorper pretium orci. Donec necscele
+                        risque leo. Nam
+                        massa dolor imperdiet neccon sequata congue idsem. Maecenas malesuada faucibus finibus.</p>
+                    <p class="text-gray-600 text-sm md:text-base mb-6">Proin ullamcorper pretium orci. Donec necscele
+                        risque leo. Nam
+                        massa dolor imperdiet neccon sequata congue idsem. Maecenas malesuada faucibus finibus.</p>
+                    <div class="hidden lg:flex items-center justify-center md:justify-start space-x-4">
+                        <button
+                            class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-gray-300 text-gray-400 hover:border-[#346e49]">
+                            <svg class="w-5 h-5" fill="none" stroke="#346e49" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 19l-7-7 7-7">
+                                </path>
+                            </svg>
+                        </button>
+                        <button
+                            class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-gray-300 text-gray-400 hover:border-[#346e49]">
+                            <svg class="w-5 h-5" fill="none" stroke="#346e49" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 flex flex-col md:flex-row justify-center gap-16 md:gap-6">
+                    <div class="relative">
+                        <img src="{% static 'images/team1.png' %}" alt="Team Member 1"
+                            class="rounded-lg shadow-lg max-w-40 md:max-w-70 object-cover">
+                        <div
+                            class="absolute bg-white -bottom-14 left-0.5 md:left-7 px-4 py-4 rounded-lg shadow-lg flex flex-col gap-1 md:gap-4">
+                            <div class="flex flex-col">
+                                <h3 class="text-xs md:text-lg font-bold text-[#B32413]">SIVA RAMA KRISHNA</h3>
+                                <p class="text-gray-700 text-center md:text-xs text-[10px]">CEO & Co-Founder</p>
+                            </div>
+                            <div class="flex gap-2 justify-center">
+                                <a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                                        viewBox="0 0 24 24">
+                                        <path fill="#346e49"
+                                            d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z" />
+                                    </svg>
+                                </a>
+
+                                <a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                                        viewBox="0 0 24 24">
+                                        <path fill="#346e49"
+                                            d="M22.46 6c-.77.35-1.6.58-2.46.69c.88-.53 1.56-1.37 1.88-2.38c-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29c0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15c0 1.49.75 2.81 1.91 3.56c-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.2 4.2 0 0 1-1.93.07a4.28 4.28 0 0 0 4 2.98a8.52 8.52 0 0 1-5.33 1.84q-.51 0-1.02-.06C3.44 20.29 5.7 21 8.12 21C16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56c.84-.6 1.56-1.36 2.14-2.23" />
+                                    </svg>
+                                </a>
+
+                                <a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                                        viewBox="0 0 24 24">
+                                        <path fill="#346e49" fill-rule="evenodd"
+                                            d="M12 2c-2.716 0-3.056.012-4.123.06c-1.064.049-1.791.218-2.427.465a4.9 4.9 0 0 0-1.772 1.153A4.9 4.9 0 0 0 2.525 5.45c-.247.636-.416 1.363-.465 2.427C2.011 8.944 2 9.284 2 12s.011 3.056.06 4.123c.049 1.064.218 1.791.465 2.427a4.9 4.9 0 0 0 1.153 1.772a4.9 4.9 0 0 0 1.772 1.153c.636.247 1.363.416 2.427.465c1.067.048 1.407.06 4.123.06s3.056-.012 4.123-.06c1.064-.049 1.791-.218 2.427-.465a4.9 4.9 0 0 0 1.772-1.153a4.9 4.9 0 0 0 1.153-1.772c.247-.636.416-1.363.465-2.427c.048-1.067.06-1.407.06-4.123s-.012-3.056-.06-4.123c-.049-1.064-.218-1.791-.465-2.427a4.9 4.9 0 0 0-1.153-1.772a4.9 4.9 0 0 0-1.772-1.153c-.636-.247-1.363-.416-2.427-.465C15.056 2.012 14.716 2 12 2m0 1.802c2.67 0 2.986.01 4.04.058c.976.045 1.505.207 1.858.344c.466.182.8.399 1.15.748c.35.35.566.684.748 1.15c.136.353.3.882.344 1.857c.048 1.055.058 1.37.058 4.041c0 2.67-.01 2.986-.058 4.04c-.045.976-.208 1.505-.344 1.858a3.1 3.1 0 0 1-.748 1.15c-.35.35-.684.566-1.15.748c-.353.136-.882.3-1.857.344c-1.054.048-1.37.058-4.041.058c-2.67 0-2.987-.01-4.04-.058c-.976-.045-1.505-.208-1.858-.344a3.1 3.1 0 0 1-1.15-.748a3.1 3.1 0 0 1-.748-1.15c-.137-.353-.3-.882-.344-1.857c-.048-1.055-.058-1.37-.058-4.041c0-2.67.01-2.986.058-4.04c.045-.976.207-1.505.344-1.858c.182-.466.399-.8.748-1.15c.35-.35.684-.566 1.15-.748c.353-.137.882-.3 1.857-.344c1.055-.048 1.37-.058 4.041-.058m0 11.531a3.333 3.333 0 1 1 0-6.666a3.333 3.333 0 0 1 0 6.666m0-8.468a5.135 5.135 0 1 0 0 10.27a5.135 5.135 0 0 0 0-10.27m6.538-.203a1.2 1.2 0 1 1-2.4 0a1.2 1.2 0 0 1 2.4 0" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <img src="{% static 'images/team2.png' %}" alt="Team Member 1"
+                            class="rounded-lg shadow-lg max-w-40 md:max-w-70 object-cover">
+                        <div
+                            class="absolute bg-white -bottom-14 left-0.5 md:left-7 px-4 py-4 rounded-lg shadow-lg flex flex-col gap-1 md:gap-4">
+                            <div class="flex flex-col">
+                                <h3 class="text-xs md:text-lg font-bold text-[#B32413]">SIVA RAMA KRISHNA</h3>
+                                <p class="text-gray-700 text-center md:text-xs text-[10px]">CEO & Co-Founder</p>
+                            </div>
+                            <div class="flex gap-2 justify-center">
+                                <a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                                        viewBox="0 0 24 24">
+                                        <path fill="#346e49"
+                                            d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z" />
+                                    </svg>
+                                </a>
+
+                                <a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                                        viewBox="0 0 24 24">
+                                        <path fill="#346e49"
+                                            d="M22.46 6c-.77.35-1.6.58-2.46.69c.88-.53 1.56-1.37 1.88-2.38c-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29c0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15c0 1.49.75 2.81 1.91 3.56c-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.2 4.2 0 0 1-1.93.07a4.28 4.28 0 0 0 4 2.98a8.52 8.52 0 0 1-5.33 1.84q-.51 0-1.02-.06C3.44 20.29 5.7 21 8.12 21C16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56c.84-.6 1.56-1.36 2.14-2.23" />
+                                    </svg>
+                                </a>
+
+                                <a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em"
+                                        viewBox="0 0 24 24">
+                                        <path fill="#346e49" fill-rule="evenodd"
+                                            d="M12 2c-2.716 0-3.056.012-4.123.06c-1.064.049-1.791.218-2.427.465a4.9 4.9 0 0 0-1.772 1.153A4.9 4.9 0 0 0 2.525 5.45c-.247.636-.416 1.363-.465 2.427C2.011 8.944 2 9.284 2 12s.011 3.056.06 4.123c.049 1.064.218 1.791.465 2.427a4.9 4.9 0 0 0 1.153 1.772a4.9 4.9 0 0 0 1.772 1.153c.636.247 1.363.416 2.427.465c1.067.048 1.407.06 4.123.06s3.056-.012 4.123-.06c1.064-.049 1.791-.218 2.427-.465a4.9 4.9 0 0 0 1.772-1.153a4.9 4.9 0 0 0 1.153-1.772c.247-.636.416-1.363.465-2.427c.048-1.067.06-1.407.06-4.123s-.012-3.056-.06-4.123c-.049-1.064-.218-1.791-.465-2.427a4.9 4.9 0 0 0-1.153-1.772a4.9 4.9 0 0 0-1.772-1.153c-.636-.247-1.363-.416-2.427-.465C15.056 2.012 14.716 2 12 2m0 1.802c2.67 0 2.986.01 4.04.058c.976.045 1.505.207 1.858.344c.466.182.8.399 1.15.748c.35.35.566.684.748 1.15c.136.353.3.882.344 1.857c.048 1.055.058 1.37.058 4.041c0 2.67-.01 2.986-.058 4.04c-.045.976-.208 1.505-.344 1.858a3.1 3.1 0 0 1-.748 1.15c-.35.35-.684.566-1.15.748c-.353.136-.882.3-1.857.344c-1.054.048-1.37.058-4.041.058c-2.67 0-2.987-.01-4.04-.058c-.976-.045-1.505-.208-1.858-.344a3.1 3.1 0 0 1-1.15-.748a3.1 3.1 0 0 1-.748-1.15c-.137-.353-.3-.882-.344-1.857c-.048-1.055-.058-1.37-.058-4.041c0-2.67.01-2.986.058-4.04c.045-.976.207-1.505.344-1.858c.182-.466.399-.8.748-1.15c.35-.35.684-.566 1.15-.748c.353-.137.882-.3 1.857-.344c1.055-.048 1.37-.058 4.041-.058m0 11.531a3.333 3.333 0 1 1 0-6.666a3.333 3.333 0 0 1 0 6.666m0-8.468a5.135 5.135 0 1 0 0 10.27a5.135 5.135 0 0 0 0-10.27m6.538-.203a1.2 1.2 0 1 1-2.4 0a1.2 1.2 0 0 1 2.4 0" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+ 
+    </main>
+{% endblock %}
