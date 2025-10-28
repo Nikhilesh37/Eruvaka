@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import author, blogs
 
-# Register your models here.
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)

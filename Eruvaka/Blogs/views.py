@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404
 from .models import blogs
 from django.views.generic import ListView, DetailView
 
-# Blog List View
 class BlogListView(ListView):
     model = blogs
     template_name = "blogs.html"
@@ -13,7 +12,6 @@ class BlogListView(ListView):
         context = super().get_context_data(**kwargs)
         return context
 
-# Blog Detail View
 class BlogDetailView(DetailView):
     model = blogs
     template_name = "blog_detail.html"

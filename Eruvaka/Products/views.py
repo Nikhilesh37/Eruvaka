@@ -3,7 +3,6 @@ from Home.models import items, category
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
 
-# Create your views here.
 class ProductListView(ListView):
     model = items
     template_name = 'products.html'
@@ -13,12 +12,10 @@ class ProductListView(ListView):
     def get_queryset(self):
         queryset = items.objects.all()
         
-        # Filter by category
         category_id = self.request.GET.get('category')
         if category_id:
             queryset = queryset.filter(category_id=category_id)
         
-        # Filter by type
         filter_type = self.request.GET.get('filter')
         if filter_type == 'bestseller':
             queryset = queryset.filter(Best_Sellers=True)
@@ -36,7 +33,6 @@ class ProductListView(ListView):
         context['current_filter'] = self.request.GET.get('filter', '')
         context['search_query'] = self.request.GET.get('search', '')
         
-        # Count items for each filter
         context['total_items'] = items.objects.count()
         context['bestseller_count'] = items.objects.filter(Best_Sellers=True).count()
         context['popular_count'] = items.objects.filter(Featured_Products=True).count()
@@ -54,7 +50,6 @@ class ProductDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Get related products from same category
         context['related_products'] = items.objects.filter(
             category=self.object.category
         ).exclude(id=self.object.id)[:4]

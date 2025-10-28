@@ -386,7 +386,7 @@
   </section>
 
   <!-- New Arrivals Section with Image - Dynamic -->
-  <section class="px-4 md:px-16 pt-12 pb-10 bg-white relative">
+  <section id="new-arrivals" class="px-4 md:px-16 pt-12 pb-10 bg-white relative">
     <div class="max-w-7xl mx-auto">
       <div class="pb-7 relative z-10">
         <div class="flex items-center justify-center gap-4 md:gap-8">
@@ -412,23 +412,23 @@
         <div class="w-full lg:w-3/5">
           <div class="flex flex-wrap justify-between items-center gap-4 border-b border-gray-100 pb-2">
             <ul class="flex flex-wrap gap-4 sm:gap-6 text-sm sm:text-base font-medium">
-              <li><a href="#" class="text-red-600 border-b-2 border-red-600 pb-2 transition whitespace-nowrap">All Products</a></li>
-              <li><a href="#" class="text-gray-700 hover:text-red-600 border-b-2 border-transparent hover:border-red-600 pb-2 transition whitespace-nowrap">Spices</a></li>
-              <li><a href="#" class="text-gray-700 hover:text-red-600 border-b-2 border-transparent hover:border-red-600 pb-2 transition whitespace-nowrap">Sweets</a></li>
-              <li><a href="#" class="text-gray-700 hover:text-red-600 border-b-2 border-transparent hover:border-red-600 pb-2 transition whitespace-nowrap">Pickles</a></li>
+              <li><a href="?category=all#new-arrivals" class="{% if selected_category == 'all' or not selected_category %}text-red-600 border-b-2 border-red-600{% else %}text-gray-700 hover:text-red-600 border-b-2 border-transparent hover:border-red-600{% endif %} pb-2 transition whitespace-nowrap">All Products</a></li>
+              {% for cat in all_categories %}
+              <li><a href="?category={{ cat.name }}#new-arrivals" class="{% if selected_category|lower == cat.name|lower %}text-red-600 border-b-2 border-red-600{% else %}text-gray-700 hover:text-red-600 border-b-2 border-transparent hover:border-red-600{% endif %} pb-2 transition whitespace-nowrap">{{ cat.name }}</a></li>
+              {% endfor %}
             </ul>
 
             <div class="flex items-center gap-2">
-              <button class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-gray-300 text-gray-400 hover:border-[#346e49]">
-                <svg class="w-5 h-5" fill="none" stroke="#346e49" viewBox="0 0 24 24">
+              <a href="?category={{ prev_category }}#new-arrivals" class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-gray-300 text-gray-400 hover:border-[#346e49] hover:text-[#346e49] transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                 </svg>
-              </button>
-              <button class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-gray-300 text-gray-400 hover:border-[#346e49]">
-                <svg class="w-5 h-5" fill="none" stroke="#346e49" viewBox="0 0 24 24">
+              </a>
+              <a href="?category={{ next_category }}#new-arrivals" class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-gray-300 text-gray-400 hover:border-[#346e49] hover:text-[#346e49] transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                 </svg>
-              </button>
+              </a>
             </div>
           </div>
 
