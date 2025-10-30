@@ -2,7 +2,6 @@ from django.db import models
 from Home.models import items
 
 class ProductWeight(models.Model):
-    """Model to store different weight variants and their prices for each product"""
     product = models.ForeignKey(items, on_delete=models.CASCADE, related_name='weight_variants')
     weight = models.CharField(max_length=50, help_text="e.g., 500g, 1kg, 2kg, 5kg")
     weight_in_grams = models.IntegerField(help_text="Weight in grams for sorting")
@@ -23,14 +22,12 @@ class ProductWeight(models.Model):
         return f"{self.product.name} - {self.weight} - Rs.{self.price}"
     
     def save(self, *args, **kwargs):
-        # If this is set as default, remove default from other weights of the same product
         if self.is_default:
             ProductWeight.objects.filter(product=self.product, is_default=True).update(is_default=False)
         super().save(*args, **kwargs)
     
     @property
     def discount_percentage(self):
-        """Calculate discount percentage if old_price exists"""
         if self.old_price and self.old_price > self.price:
             return int(((self.old_price - self.price) / self.old_price) * 100)
         return 0

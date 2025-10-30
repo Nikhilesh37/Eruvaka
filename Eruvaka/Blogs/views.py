@@ -1,4 +1,3 @@
-from django.shortcuts import render, get_object_or_404
 from .models import blogs
 from django.views.generic import ListView, DetailView
 
@@ -7,10 +6,6 @@ class BlogListView(ListView):
     template_name = "blogs.html"
     context_object_name = "blogs"
     paginate_by = 6
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
 
 class BlogDetailView(DetailView):
     model = blogs

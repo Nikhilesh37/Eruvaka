@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from .models import  category, items
-from django import views
 
 class homeview(TemplateView):
     template_name = "home.html"
@@ -35,16 +34,4 @@ class homeview(TemplateView):
             ).order_by('-id')[:6]
         
         return context
-class newview(views.View):
-    def get(self, request):
-        input1 = request.GET.get('input1')
-        input2 = request.GET.get('input2')
-        result = None
-        if input1 and input2:
-            result = float(input1) + float(input2)
-        context = {
-            'input1': input1,
-            'input2': input2,
-            'result': result,
-        }
-        return render(request, 'new.html', context)
+

@@ -30,19 +30,16 @@ class items(models.Model):
         return self.name
     
     def get_weight_options(self):
-        """Return list of available weights"""
         if self.weight_prices:
             return list(self.weight_prices.keys())
         return []
     
     def get_price_for_weight(self, weight):
-        """Get price for specific weight"""
         if self.weight_prices and weight in self.weight_prices:
             return self.weight_prices[weight].get('price', self.price)
         return self.price
     
     def get_old_price_for_weight(self, weight):
-        """Get old price for specific weight"""
         if self.weight_prices and weight in self.weight_prices:
             return self.weight_prices[weight].get('old_price', self.old_price)
         return self.old_price

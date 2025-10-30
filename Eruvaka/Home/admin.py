@@ -9,7 +9,6 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 class ItemAdminForm(forms.ModelForm):
-    # Dynamic weight price fields
     weight_250g_price = forms.IntegerField(required=False, label='250g Price')
     weight_250g_old_price = forms.IntegerField(required=False, label='250g Old Price')
     
@@ -32,7 +31,6 @@ class ItemAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance and self.instance.pk and self.instance.weight_prices:
-            # Populate fields from existing data
             weight_data = self.instance.weight_prices
             if '250g' in weight_data:
                 self.fields['weight_250g_price'].initial = weight_data['250g'].get('price')
@@ -53,7 +51,6 @@ class ItemAdminForm(forms.ModelForm):
     def save(self, commit=True):
         instance = super().save(commit=False)
         
-        # Build weight_prices JSON from form fields
         weight_prices = {}
         
         weights = [
