@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load custom_filters %}
 
 {% block title %}Eruvaka - Products{% endblock %}
 
@@ -172,24 +171,11 @@
                 
                 <div class="relative mt-2">
                   <select 
-                    data-item-id="{{ item.id }}"
                     onclick="event.preventDefault(); event.stopPropagation();" 
-                    onchange="updateProductPrice(this)"
                     class="block w-full appearance-none rounded-md border border-gray-300 bg-white py-2 pl-3 pr-8 text-sm text-gray-700 shadow-sm focus:border-[#346e49] focus:outline-none focus:ring-[#346e49]">
-                    {% if item.weight_prices %}
-                      {% for weight, prices in item.weight_prices.items %}
-                        <option value="{{ weight }}" 
-                                data-price="{{ prices.price }}" 
-                                data-old-price="{{ prices.old_price }}"
-                                {% if weight == item.default_weight %}selected{% endif %}>
-                          {{ weight }}
-                        </option>
-                      {% endfor %}
-                    {% else %}
-                      <option value="500g" data-price="{{ item.price }}" data-old-price="{{ item.old_price }}">500 gm</option>
-                      <option value="1kg" data-price="{{ item.price }}" data-old-price="{{ item.old_price }}">1 kg</option>
-                      <option value="2kg" data-price="{{ item.price }}" data-old-price="{{ item.old_price }}">2 kg</option>
-                    {% endif %}
+                    <option value="500g">500 gm</option>
+                    <option value="1kg">1 kg</option>
+                    <option value="2kg">2 kg</option>
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -200,17 +186,11 @@
                 
                 <div class="mt-3 flex items-center justify-between">
                   <div>
-                    <span class="text-xl font-bold text-[#B32413] current-price-{{ item.id }}">
-                      Rs. {% if item.weight_prices %}{{ item.weight_prices|get_item:item.default_weight|get_item:'price' }}{% else %}{{ item.price }}{% endif %}
+                    <span class="text-xl font-bold text-[#B32413]">
+                      Rs. {{ item.price }}
                     </span>
-                    {% if item.weight_prices %}
-                      {% with default_data=item.weight_prices|get_item:item.default_weight %}
-                        {% if default_data.old_price and default_data.old_price > 0 %}
-                          <span class="text-sm text-gray-400 line-through ml-2 old-price-{{ item.id }}">Rs. {{ default_data.old_price }}</span>
-                        {% endif %}
-                      {% endwith %}
-                    {% elif item.old_price and item.old_price > 0 %}
-                      <span class="text-sm text-gray-400 line-through ml-2 old-price-{{ item.id }}">Rs. {{ item.old_price }}</span>
+                    {% if item.old_price and item.old_price > 0 %}
+                      <span class="text-sm text-gray-400 line-through ml-2">Rs. {{ item.old_price }}</span>
                     {% endif %}
                   </div>
                   <button onclick="event.preventDefault(); event.stopPropagation();" class="flex h-10 w-10 items-center justify-center rounded-full bg-[#346e49] text-white hover:bg-[#2a593a]">
@@ -264,36 +244,4 @@
       </div>
     </section>
   </main>
-  
-  <script>
-  /**
-   * Update product price when weight selection changes on products list page
-   */
-  function updateProductPrice(selectElement) {
-    // Get the selected option and its data attributes
-    const selectedOption = selectElement.options[selectElement.selectedIndex];
-    const price = selectedOption.getAttribute('data-price');
-    const oldPrice = selectedOption.getAttribute('data-old-price');
-    const itemId = selectElement.getAttribute('data-item-id');
-    
-    // Find the price elements for this product
-    const currentPriceElement = document.querySelector('.current-price-' + itemId);
-    const oldPriceElement = document.querySelector('.old-price-' + itemId);
-    
-    // Update current price if element exists
-    if (currentPriceElement && price) {
-      currentPriceElement.textContent = 'Rs. ' + price;
-    }
-    
-    // Update old price if element exists
-    if (oldPriceElement) {
-      if (oldPrice && oldPrice !== '0' && oldPrice !== 'None' && oldPrice !== 'null') {
-        oldPriceElement.textContent = 'Rs. ' + oldPrice;
-        oldPriceElement.style.display = 'inline';
-      } else {
-        oldPriceElement.style.display = 'none';
-      }
-    }
-  }
-  </script>
 {% endblock %}

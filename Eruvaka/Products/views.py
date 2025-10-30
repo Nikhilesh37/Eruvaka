@@ -1,5 +1,4 @@
 from Home.models import items, category
-from .models import ProductWeight
 from django.views.generic import ListView, DetailView
 
 class ProductListView(ListView):
@@ -53,19 +52,5 @@ class ProductDetailView(DetailView):
         context['related_products'] = items.objects.filter(
             category=self.object.category
         ).exclude(id=self.object.id)[:4]
-        
-        weight_variants = ProductWeight.objects.filter(product=self.object)
-        context['weight_variants'] = weight_variants
-        
-        default_weight = weight_variants.filter(is_default=True).first()
-        if not default_weight:
-            default_weight = weight_variants.first()
-        context['default_weight'] = default_weight
-        
-        selected_weight = self.request.GET.get('weight')
-        if selected_weight:
-            selected_variant = weight_variants.filter(weight=selected_weight).first()
-            if selected_variant:
-                context['selected_weight'] = selected_variant
         
         return context

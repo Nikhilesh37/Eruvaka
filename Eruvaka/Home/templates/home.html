@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-{% load custom_filters %}
 
 {% block title %}Eruvaka - Home{% endblock %}
 
@@ -181,40 +180,18 @@
                     <div class="text-gray-600 text-xs">{{ item.category.name }}</div>
                     <div class="font-bold text-sm mb-2">{{ item.name }}</div>
                     <select class="w-full border border-gray-300 rounded-md text-xs p-1 mb-2 appearance-none" 
-                            data-item-id="{{ item.id }}"
-                            onclick="event.preventDefault(); event.stopPropagation();"
-                            onchange="updatePriceHome(this)">
-                      {% if item.weight_prices %}
-                        {% for weight, prices in item.weight_prices.items %}
-                          <option value="{{ weight }}" 
-                                  data-price="{{ prices.price }}" 
-                                  data-old-price="{{ prices.old_price }}"
-                                  {% if weight == item.default_weight %}selected{% endif %}>
-                            {{ weight }}
-                          </option>
-                        {% endfor %}
-                      {% else %}
-                        <option value="500g">500 gm</option>
-                      {% endif %}
+                            onclick="event.preventDefault(); event.stopPropagation();">
+                      <option value="500g">500 gm</option>
+                      <option value="1kg">1 kg</option>
+                      <option value="2kg">2 kg</option>
                     </select>
                     <div class="flex items-center justify-between">
-                      {% if item.weight_prices %}
-                        {% with default_data=item.weight_prices|get_item:item.default_weight %}
-                          {% if default_data.old_price and default_data.old_price > 0 %}
-                            <span class="text-gray-500 line-through text-xs old-price-{{ item.id }}">Rs.{{ default_data.old_price }}</span>
-                          {% else %}
-                            <span class="text-xs old-price-{{ item.id }}">&nbsp;</span>
-                          {% endif %}
-                          <span class="text-red-600 font-bold text-base current-price-{{ item.id }}">Rs.{{ default_data.price }}</span>
-                        {% endwith %}
+                      {% if item.old_price and item.old_price > 0 %}
+                      <span class="text-gray-500 line-through text-xs">Rs.{{ item.old_price }}</span>
                       {% else %}
-                        {% if item.old_price and item.old_price > 0 %}
-                        <span class="text-gray-500 line-through text-xs old-price-{{ item.id }}">Rs.{{ item.old_price }}</span>
-                        {% else %}
-                        <span class="text-xs old-price-{{ item.id }}">&nbsp;</span>
-                        {% endif %}
-                        <span class="text-red-600 font-bold text-base current-price-{{ item.id }}">Rs.{{ item.price }}</span>
+                      <span class="text-xs">&nbsp;</span>
                       {% endif %}
+                      <span class="text-red-600 font-bold text-base">Rs.{{ item.price }}</span>
                       <button
                         class="size-6 bg-green-700 rounded-full text-white flex items-center justify-center hover:bg-green-800 transition ml-2"
                         onclick="event.preventDefault(); event.stopPropagation();">
@@ -381,40 +358,18 @@
             <div class="text-gray-600 text-xs">{{ item.category.name }}</div>
             <div class="font-bold text-sm mb-2">{{ item.name }}</div>
             <select class="w-full border border-gray-300 rounded-md text-xs p-1 mb-2 appearance-none" 
-                    data-item-id="{{ item.id }}"
-                    onclick="event.preventDefault(); event.stopPropagation();"
-                    onchange="updatePriceHome(this)">
-              {% if item.weight_prices %}
-                {% for weight, prices in item.weight_prices.items %}
-                  <option value="{{ weight }}" 
-                          data-price="{{ prices.price }}" 
-                          data-old-price="{{ prices.old_price }}"
-                          {% if weight == item.default_weight %}selected{% endif %}>
-                    {{ weight }}
-                  </option>
-                {% endfor %}
-              {% else %}
-                <option value="500g">500 gm</option>
-              {% endif %}
+                    onclick="event.preventDefault(); event.stopPropagation();">
+              <option value="500g">500 gm</option>
+              <option value="1kg">1 kg</option>
+              <option value="2kg">2 kg</option>
             </select>
             <div class="flex items-center justify-between">
-              {% if item.weight_prices %}
-                {% with default_data=item.weight_prices|get_item:item.default_weight %}
-                  {% if default_data.old_price and default_data.old_price > 0 %}
-                    <span class="text-gray-500 line-through text-xs old-price-{{ item.id }}">Rs.{{ default_data.old_price }}</span>
-                  {% else %}
-                    <span class="text-xs old-price-{{ item.id }}">&nbsp;</span>
-                  {% endif %}
-                  <span class="text-red-600 font-bold text-base current-price-{{ item.id }}">Rs.{{ default_data.price }}</span>
-                {% endwith %}
+              {% if item.old_price and item.old_price > 0 %}
+              <span class="text-gray-500 line-through text-xs">Rs.{{ item.old_price }}</span>
               {% else %}
-                {% if item.old_price and item.old_price > 0 %}
-                <span class="text-gray-500 line-through text-xs old-price-{{ item.id }}">Rs.{{ item.old_price }}</span>
-                {% else %}
-                <span class="text-xs old-price-{{ item.id }}">&nbsp;</span>
-                {% endif %}
-                <span class="text-red-600 font-bold text-base current-price-{{ item.id }}">Rs.{{ item.price }}</span>
+              <span class="text-xs">&nbsp;</span>
               {% endif %}
+              <span class="text-red-600 font-bold text-base">Rs.{{ item.price }}</span>
               <button
                 class="size-6 bg-green-700 rounded-full text-white flex items-center justify-center hover:bg-green-800 transition ml-2"
                 onclick="event.preventDefault(); event.stopPropagation();">
@@ -500,32 +455,14 @@
                   <div class="text-gray-900 font-bold text-base mb-2 line-clamp-1">{{ item.name }}</div>
                   <div class="flex items-center justify-between gap-2 mb-2">
                     <select class="flex-1 border border-gray-300 rounded-md text-sm p-2 appearance-none bg-white" 
-                            data-item-id="{{ item.id }}"
-                            onclick="event.preventDefault(); event.stopPropagation();"
-                            onchange="updatePriceHome(this)">
-                      {% if item.weight_prices %}
-                        {% for weight, prices in item.weight_prices.items %}
-                          <option value="{{ weight }}" 
-                                  data-price="{{ prices.price }}" 
-                                  data-old-price="{{ prices.old_price }}"
-                                  {% if weight == item.default_weight %}selected{% endif %}>
-                            {{ weight }}
-                          </option>
-                        {% endfor %}
-                      {% else %}
-                        <option value="500g">500 gm</option>
-                        <option value="1kg">1 kg</option>
-                      {% endif %}
+                            onclick="event.preventDefault(); event.stopPropagation();">
+                      <option value="500g">500 gm</option>
+                      <option value="1kg">1 kg</option>
+                      <option value="2kg">2 kg</option>
                     </select>
                   </div>
                   <div class="flex items-center justify-between pb-2">
-                    {% if item.weight_prices %}
-                      {% with default_data=item.weight_prices|get_item:item.default_weight %}
-                        <span class="text-red-600 font-bold text-lg current-price-{{ item.id }}">Rs.{{ default_data.price }}</span>
-                      {% endwith %}
-                    {% else %}
-                      <span class="text-red-600 font-bold text-lg current-price-{{ item.id }}">Rs.{{ item.price }}</span>
-                    {% endif %}
+                    <span class="text-red-600 font-bold text-lg">Rs.{{ item.price }}</span>
                     <button class="size-8 bg-green-700 rounded-full text-white flex items-center justify-center hover:bg-green-800 transition" onclick="event.preventDefault(); event.stopPropagation();">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -565,37 +502,5 @@
       </div>
     </div>
   </section>
-
-  <script>
-  /**
-   * Update product price when weight selection changes
-   * This function handles dynamic price updates for weight variants
-   */
-  function updatePriceHome(selectElement) {
-    // Get the selected option and its data attributes
-    const selectedOption = selectElement.options[selectElement.selectedIndex];
-    const price = selectedOption.getAttribute('data-price');
-    const oldPrice = selectedOption.getAttribute('data-old-price');
-    const itemId = selectElement.getAttribute('data-item-id');
-    
-    // Find the price elements for this product
-    const currentPriceElement = document.querySelector('.current-price-' + itemId);
-    const oldPriceElement = document.querySelector('.old-price-' + itemId);
-
-    if (currentPriceElement && price) {
-      currentPriceElement.textContent = 'Rs.' + price;
-    }
-    
-    // Update old price if element exists
-    if (oldPriceElement) {
-      if (oldPrice && oldPrice !== '0' && oldPrice !== 'None' && oldPrice !== 'null') {
-        oldPriceElement.textContent = 'Rs.' + oldPrice;
-        oldPriceElement.style.display = 'inline';
-      } else {
-        oldPriceElement.style.display = 'none';
-      }
-    }
-  }
-  </script>
 
 {% endblock %}

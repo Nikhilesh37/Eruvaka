@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eruvaka - Products</title>
+  {% load static %}
+  <link href="{% static 'css/output.css' %}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-white">
+  <header>
+    <!-- Top Bar -->
+    <div class="text-[12px] px-4 mx-auto space-x-2 text-zinc-200 bg-[#346e49] flex justify-center">
+      <span class="py-2">🌸 Big Festive Sale is LIVE Now -
+        <strong>Get 10% Extra!</strong></span>
+      <span class="hidden md:flex text-[20px]">|</span>
+      <strong class="hidden md:flex py-2">Top Sellers</strong>
+      <span class="hidden md:flex text-[20px]">|</span>
+      <span class="hidden md:flex py-2">Enjoy
+        <strong>Free Delivery Over 599/</strong>-</span>
+      <span class="hidden md:flex text-[20px]">|</span>
+      <span class="hidden md:flex py-2">Extra
+        <strong class="font-bold">10% Order On your First Order</strong></span>
+    </div>
+
+    <!-- Main Header -->
+    <div class="px-2 flex flex-row md:px-6 lg:px-15">
+      <!-- Logo -->
+      <img src="{% static 'images/Logo.png' %}" alt="" class="size-18 md:size-25 lg:size-40 my-auto lg:my-0" />
+
+      <div class="flex flex-col flex-1 md:ml-15 lg:ml-20">
+        <!-- Search + Contact -->
+        <div class="flex justify-between items-center border-b border-gray-300">
+          <div class="py-2 md:py-6">
+            <div class="flex justify-center">
+              <div class="w-full">
+                <div class="relative">
+                  <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                      fill="currentColor">
+                      <path fill-rule="evenodd"
+                        d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <input id="search" name="search"
+                    class="w-55 lg:w-96 rounded-md md:rounded-l-4xl border-0 bg-white py-2.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-800 text-sm leading-6"
+                    placeholder="Search in Products" type="search" />
+                </div>
+              </div>
+              <button
+                class="hidden md:block -ml-px rounded-r-4xl bg-[#346e49] px-6 text-white font-semibold hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-800">
+                Search
+              </button>
+            </div>
+          </div>
+
+          <!-- Contact -->
+          <div class="hidden items-center space-x-2 md:flex">
+            <div class="relative">
+              <img src="{% static 'images/greendot.png' %}" alt="dsf" class="rounded-full max-w-8" />
+              <img src="{% static 'images/phone.png' %}" alt="fdd" class="absolute top-2.5 left-2.5 max-w-3.5" />
+            </div>
+            <div class="flex">
+              <span>
+                <p class="text-xs text-gray-500">Get in Touch</p>
+                <p class="text-[#B32413]">+91 90001 92200</p>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nav + Profile -->
+        <div class="mb-2 mt-2 flex justify-between items-center">
+          <a href="" class="md:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24">
+              <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M5 17h14M5 12h14M5 7h14" />
+            </svg>
+          </a>
+          <ul class="hidden md:flex flex-wrap items-center space-x-4 lg:space-x-12 text-xs lg:text-base font-medium">
+            <li>
+              <a href="{% url 'home' %}"
+                class=" text-gray-600 hover:text-[#B32413] hover:border-b-3 border-[#B32413]">Home</a>
+            </li>
+            <li>
+              <a href="{% url 'aboutus' %}"
+                class="text-gray-600 hover:text-[#B32413]  hover:border-b-3 border-[#B32413]">About</a>
+            </li>
+
+            <!-- ✅ Products Dropdown -->
+            <li class="relative group">
+              <div class="flex items-center cursor-pointer">
+                <a href="{% url 'products' %}"
+                  class="font-bold text-[#B32413] hover:border-b-3 border-[#B32413]">Products</a>
+                <svg class="mt-1 h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                  fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd" />
+                </svg>
+              </div>
+
+              <!-- Hover Popup (Mega Menu) -->
+              <div
+                class="absolute -left-70 top-full z-50 hidden w-[800px] bg-white shadow-xl group-hover:flex border border-gray-200 p-6 rounded-b-lg">
+                <div class="flex gap-8">
+                  <!-- Spices -->
+                  <div class="space-y-4 p-2 rounded-lg">
+                    <h2 class="text-xl font-semibold text-[#B32413]">Spices</h2>
+                    <ul class="space-y-2 text-gray-700">
+                      <li>Chilli Powder</li>
+                      <li>Turmeric Powder</li>
+                      <li>Coriander Powder</li>
+                      <li>Munagaku Powder</li>
+                      <li>Garam Masala</li>
+                      <li>Jeera Powder</li>
+                      <li>Garam Masala</li>
+                      <li>Jeera Powder</li>
+
+                    </ul>
+                  </div>
+
+                  <!-- Pickles -->
+                  <div class="space-y-4 p-2 bg-[#F3FFFA] rounded-lg">
+                    <h2 class="text-xl font-semibold text-[#B32413]">Pickles</h2>
+                    <ul class="space-y-2 text-gray-700">
+                      <li>Mango Pickle</li>
+                      <li>Lemon Pickle</li>
+                      <li>Gongura Pickle</li>
+                      <li>Tomato Pickle</li>
+                    </ul>
+                  </div>
+
+                  <!-- Sweets -->
+                  <div class="space-y-4 p-2 rounded-lg">
+                    <h2 class="text-xl font-semibold text-[#B32413]">Sweets</h2>
+                    <ul class="space-y-2 text-gray-700">
+                      <li>Laddu</li>
+                      <li>Jilebi</li>
+                      <li>Barfi</li>
+                      <li>Halwa</li>
+                      <li>Jilebi</li>
+                      <li>Barfi</li>
+                      <li>Halwa</li>
+                    </ul>
+                  </div>
+
+                  <!-- Offer -->
+                  <div class="relative bg-[#D3EEE3] px-8 py-8 rounded-lg flex flex-col">
+                    <h3 class="text-sm font-bold">
+                      Flat Sale <span class="text-[#346e49]">25%</span>
+                    </h3>
+                    <h1 class="text-3xl font-bold">CASH BACK</h1>
+                    <p class="text-lg font-bold">
+                      Offer Starts from
+                      <span class="text-[#346e49]">Rs. 499.99</span>
+                    </p>
+                    <button class="z-10 mt-4 bg-[#346e49] text-white max-w-30 px-3 py-2 rounded-lg">
+                      Shop Now
+                    </button>
+                    <img src="{% static 'images/plate.png' %}" alt="ddd" class="p-2 max-w-50 absolute right-0 bottom-8" />
+                    <img src="{% static 'images/spoons.png' %}" alt="" class="max-w-30 absolute left-0 bottom-0" />
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <a href="{% url 'blogs' %}"
+                class="text-gray-600 hover:text-[#B32413] hover:border-b-3 border-[#B32413]">Blogs</a>
+            </li>
+            <li>
+              <a href="{% url 'contactus' %}"
+                class="text-gray-600 hover:text-[#B32413] hover:border-b-3 border-[#B32413]">Contact
+                Us</a>
+            </li>
+          </ul>
+
+          <!-- Cart + Profile -->
+          <div class="flex items-center space-x-2 md:space-x-6">
+            <a href="#" class="relative text-gray-600 hover:text-[#346e49]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="#000" d="M16 9a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-6 0a1 1 0 1 1-2 0a1 1 0 0 1 2 0" />
+                <path fill="#000" fill-rule="evenodd"
+                  d="M12 2.75A2.25 2.25 0 0 0 9.75 5v.254q.626-.005 1.355-.004h1.79q.73-.001 1.355.004V5A2.25 2.25 0 0 0 12 2.75m3.75 2.557V5a3.75 3.75 0 0 0-7.5 0v.307q-.202.014-.391.035c-.878.095-1.613.293-2.265.74a5 5 0 0 0-.63.516c-.566.552-.905 1.234-1.17 2.076c-.257.819-.465 1.859-.727 3.166l-.019.095c-.376 1.883-.673 3.367-.758 4.549c-.088 1.208.034 2.223.606 3.104q.288.442.664.81c.752.734 1.724 1.052 2.925 1.204c1.176.148 2.69.148 4.61.148h1.81c1.921 0 3.434 0 4.61-.148c1.201-.152 2.174-.47 2.925-1.204a4.8 4.8 0 0 0 .664-.81c.572-.88.694-1.896.607-3.104c-.086-1.182-.382-2.666-.76-4.549l-.018-.095c-.261-1.307-.47-2.347-.727-3.166c-.265-.842-.604-1.524-1.17-2.076a5 5 0 0 0-.63-.516c-.652-.447-1.387-.645-2.265-.74a11 11 0 0 0-.39-.035M8.02 6.833c-.747.08-1.208.233-1.578.486a3.3 3.3 0 0 0-.431.354c-.321.313-.56.735-.786 1.451c-.23.733-.424 1.693-.695 3.052c-.39 1.948-.667 3.34-.744 4.416c-.077 1.062.052 1.693.368 2.179q.196.302.454.554c.415.405 1.008.655 2.065.789c1.07.135 2.49.136 4.476.136h1.703c1.986 0 3.404-.001 4.475-.136c1.057-.134 1.65-.384 2.065-.789a3.3 3.3 0 0 0 .454-.554c.316-.486.445-1.117.369-2.18c-.078-1.076-.355-2.467-.744-4.415c-.272-1.359-.465-2.32-.696-3.052c-.225-.716-.465-1.138-.786-1.451a3 3 0 0 0-.43-.354c-.37-.253-.832-.405-1.579-.486c-.763-.082-1.743-.083-3.129-.083H11.15c-1.386 0-2.366.001-3.13.083"
+                  clip-rule="evenodd" />
+              </svg>
+            </a>
+
+            <!-- Profile -->
+            <div class="flex cursor-pointer items-center space-x-1">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              <div>
+                <p class="text-[8px] md:text-[10px] text-gray-500">Welcome</p>
+                <p class="text-[10px] md:text-sm font-medium text-gray-800">Subhani Sayyad</p>
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" viewBox="0 0 20 20"
+                fill="currentColor">
+                <path fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section class="overflow-hidden px-5 md:px-20 py-8 md:py-15">
+      <div class="container mx-auto">
+        <div class="relative bg-white rounded-2xl overflow-hidden shadow-sm">
+          <div class="relative flex items-center justify-between px-10 py-14">
+            <img src="{% static 'images/bg_image.png' %}" alt="" class="absolute left-0 w-full object-cover opacity-15">
+            <div class="z-10">
+              <h1 class="text-2xl md:text-5xl font-bold mb-3" style="letter-spacing: 2px;">
+                <span class="text-[#346e49]">The</span> <span class="text-[#B32413]">Spice Rack</span>
+              </h1>
+              <p class="text-[10px] md:text-sm text-gray-600 font-medium">
+                <span class="text-[#B32413]">Home</span> &nbsp;> &nbsp;<span class="text-gray-800">Products</span>
+              </p>
+            </div>
+            <div class="hidden absolute right-10 lg:right-40 top-0 bottom-0 md:flex items-center">
+              <img src="{% static 'images/farmerwithhoe.png' %}" alt="Bullocks drawing" class="object-contain max-w-50">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="py-16 bg-white">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <p class="text-sm font-semibold uppercase tracking-wider text-gray-500">
+            Products
+          </p>
+          <div class="flex items-center justify-center gap-4 md:gap-8">
+            <div class="w-full max-w-xs sm:max-w-sm md:max-w-md">
+              <div class="h-[2px] bg-[#B32413]"></div>
+              <div class="h-[2px] bg-[#346e49] mt-0.5"></div>
+            </div>
+
+            <h2 class="flex-shrink-0 text-2xl md:text-3xl font-extrabold uppercase whitespace-nowrap">
+              <span class="text-[#B32413]">Flavors of</span>
+              <span class="text-[#346e49]"> Eruvaka?</span>
+            </h2>
+
+            <div class="w-full max-w-xs sm:max-w-sm md:max-w-md">
+              <div class="h-[2px] bg-[#B32413]"></div>
+              <div class="h-[2px] bg-[#346e49] mt-0.5"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 flex justify-center">
+          <nav class="flex items-center space-x-4 text-sm font-medium md:space-x-6" aria-label="Tabs">
+            <a href="#" class="group relative pb-2 text-[#B32413]">
+              All Products
+              <span class="absolute bottom-0 left-0 h-0.5 w-full rounded-full bg-[#B32413]"></span>
+            </a>
+            <span class="text-xl text-gray-300">|</span>
+            <a href="#" class="group relative pb-2 text-gray-500 hover:text-[#B32413]">
+              Popular Products
+              <span
+                class="absolute bottom-0 left-0 h-0.5 w-0 rounded-full bg-[#B32413] transition-all duration-300 group-hover:w-full"></span>
+            </a>
+            <span class="text-xl text-gray-300">|</span>
+            <a href="#" class="group relative pb-2 text-gray-500 hover:text-[#B32413]">
+              Best Seller
+              <span
+                class="absolute bottom-0 left-0 h-0.5 w-0 rounded-full bg-[#B32413] transition-all duration-300 group-hover:w-full"></span>
+            </a>
+          </nav>
+        </div>
+
+        <div class="mt-6 text-center">
+          <p class="text-gray-600">
+            We found <span class="font-bold text-gray-800">{{ item_count }}</span> items for
+            you!
+          </p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {% for item in items %}
+          <div class="rounded-lg border border-gray-200 bg-white shadow-sm">
+            <div class="relative aspect-square w-full overflow-hidden rounded-md bg-[#D3EEE3]">
+              <img src="{{ item.image.url }}" alt="{{ item.name }}" class="h-full w-full object-contain" />
+              <span
+                class="absolute bottom-0.5 right-0.5 flex items-center rounded-sm bg-white px-5 py-2 text-sm font-semibold text-yellow-700 shadow">
+                <svg class="mr-0.5 h-3 w-3 text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                  fill="currentColor">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+                {{ item.ratings }}
+              </span>
+            </div>
+            <div class="mt-4 p-5">
+              <p class="text-sm text-gray-500">{{ item.category.name }}</p>
+              <h3 class="text-lg font-semibold text-gray-800">
+                {{ item.name }}
+              </h3>
+              <div class="relative mt-2">
+                <select
+                  class="block w-full appearance-none rounded-md border border-gray-300 bg-white py-2 pl-3 pr-8 text-sm text-gray-700 shadow-sm focus:border-[#346e49] focus:outline-none focus:ring-[#346e49]">
+                  <option>500 gm</option>
+                  <option>1 kg</option>
+                  <option>2 kg</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                    aria-hidden="true">
+                    <path fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd" />
+                </div>
+              </div>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="text-xl font-bold text-[#B32413]">Rs.{{ item.price }}</span>
+                <button
+                  class="flex h-10 w-10 items-center justify-center rounded-full bg-[#346e49] text-white hover:bg-[#2a593a]">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="flex flex-col gap-4 md:gap-[60px] mt-5">
+    <div class="w-full text-center py-2 flex flex-col gap-2 px-10 lg:px-20">
+      <div class="flex items-center justify-center gap-4 md:gap-8">
+        <div class="w-full max-w-xs sm:max-w-sm md:max-w-md">
+          <div class="h-[2px] bg-[#B32413]"></div>
+          <div class="h-[2px] bg-[#346e49] mt-0.5"></div>
+        </div>
+
+        <h2 class="flex-shrink-0 text-2xl md:text-3xl font-extrabold uppercase whitespace-nowrap">
+          <span class="text-[#B32413]">Why</span>
+          <span class="text-[#346e49]"> Eruvaka?</span>
+        </h2>
+
+        <div class="w-full max-w-xs sm:max-w-sm md:max-w-md">
+          <div class="h-[2px] bg-[#B32413]"></div>
+          <div class="h-[2px] bg-[#346e49] mt-0.5"></div>
+        </div>
+      </div>
+
+      <div class="">
+        <p class="max-w-2xl mx-auto text-gray-500 leading-relaxed text-xs md:text-base">
+          Lorem ipsum dolor sit amet consectetur. Tortor tincidunt turpis arcu
+          sit aenean ac. Euismod pharetra augue
+        </p>
+      </div>
+    </div>
+    <div class="bg-[#D3EEE3] relative py-8 w-full">
+      <div>
+        <img src="{% static 'images/autback.png' %}" alt="" class="absolute top-15 object-contain" />
+      </div>
+
+      <div class="relative z-10 container mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-center">
+          <div class="flex flex-col items-center justify-center relative">
+            <img src="{% static 'images/greenback.png' %}" alt="" class="w-60 absolute z-0 top-0 left-1" />
+            <img class="size-40 z-10" src="{% static 'images/farmer friendly.png' %}" alt="Illustration of farmer friendly" />
+            <p class="text-lg md:text-xl font-bold uppercase text-[#1C1C1C] tracking-wider">
+              Farmer Friendly
+            </p>
+          </div>
+
+          <div class="flex flex-col items-center justify-center relative">
+            <img src="{% static 'images/greenback.png' %}" alt="" class="w-60 absolute z-0 top-0 left-0" />
+            <img class="size-40 z-10" src="{% static 'images/authencity.png' %}" alt="Illustration of authenticity" />
+            <p class="text-lg md:text-xl font-bold uppercase text-[#1C1C1C] tracking-wider">
+              Authenticity
+            </p>
+          </div>
+
+          <div class="flex flex-col items-center justify-center relative">
+            <img src="{% static 'images/greenback.png' %}" alt="" class="w-60 absolute z-0 -top-3 left-3" />
+            <img class="size-40 z-10" src="{% static 'images/healthy food.png' %}" alt="Illustration of healthy food" />
+            <p class="text-lg md:text-xl font-bold uppercase text-[#1C1C1C] tracking-wider">
+              Healthy Food
+            </p>
+          </div>
+
+          <div class="flex flex-col items-center justify-center relative">
+            <img src="{% static 'images/greenback.png' %}" alt="" class="w-60 absolute z-0 top-0 left-6" />
+            <img class="size-40 z-10" src="{% static 'images/women empowerment.png' %}" alt="Illustration of women empowerment" />
+            <p class="text-lg md:text-xl font-bold uppercase text-[#1C1C1C] tracking-wider">
+              Women Empowerment
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="flex flex-col lg:flex-row">
+      <div class="lg:w-2/5 bg-[#346e49] relative flex justify-center items-end lg:p-0">
+        <img src="{% static 'images/farmer carriying katte.png' %}" alt="Illustration of a farmer with a plough"
+          class="md:max-w-md lg:max-w-lg lg:absolute lg:top-8 lg:left-1/2 lg:-translate-x-1/2" />
+      </div>
+
+      <div class="lg:w-3/5 p-6 bg-white relative">
+        <div class="absolute inset-0 bg-no-repeat bg-right-top opacity-100 h-50" style="background-image: url('{% static 'images/backlowopa.png' %}'); background-size: cover;"></div>
+
+        <div class="relative z-10">
+          <div>
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold uppercase tracking-wide">
+              <span class="text-[#B32413]">What our </span>
+              <span class="text-[#346e49]">Customer</span><br />
+              <span class="text-[#B32413]">have to say...</span>
+            </h2>
+            <p class="text-xs md:text-base mt-4 text-gray-500 max-w-lg">
+              Lorem ipsum dolor sit amet consectetur. Tortor tincidunt turpis
+              arcu sit aenean ac. Euismod pharetra augue
+            </p>
+          </div>
+
+          <div class="lg:absolute lg:-left-50 mt-10 flex flex-col lg:flex-row gap-6">
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col">
+              <div class="flex items-center text-yellow-400">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                  </path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                  </path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                  </path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                  </path>
+                </svg>
+              </div>
+              <p class="mt-4 text-gray-500 text-xs md:text-sm flex-grow">
+                Lorem ipsum dolor sit amet consectetur. Tortor tincidunt
+                turpis arcu sit aenean ac. Euismod pharetra augue.
+              </p>
+              <div class="flex items-center pt-4 border-t border-gray-100">
+                <img class="w-10 h-10 rounded-full object-cover" src="{% static 'images/review.png' %}" alt="Avatar of Jay Tej" />
+                <div class="ml-3">
+                  <p class="font-bold text-gray-800 text-sm">Jay Tej</p>
+                  <p class="text-xs text-gray-400">CEO-UVXYZ Labs</p>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex flex-col">
+              <div class="flex items-center text-yellow-400">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                  </path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                  </path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                  </path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                  </path>
+                </svg>
+              </div>
+              <p class="mt-4 text-gray-500 text-xs md:text-sm flex-grow">
+                Lorem ipsum dolor sit amet consectetur. Tortor tincidunt
+                turpis arcu sit aenean ac. Euismod pharetra augue.
+              </p>
+              <div class="flex items-center pt-4 border-t border-gray-100">
+                <img class="w-10 h-10 rounded-full object-cover" src="{% static 'images/review.png' %}" alt="Avatar of Subhani Sayyad" />
+                <div class="ml-3">
+                  <p class="font-bold text-gray-800 text-sm">
+                    Subhani Sayyad
+                  </p>
+                  <p class="text-xs text-gray-400">CEO-UVXYZ Labs</p>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm flex-col xl:flex hidden">
+              <div class="flex items-center text-yellow-400">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                  </path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                  </path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                  </path>
+                </svg>
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                  </path>
+                </svg>
+              </div>
+              <p class="mt-4 text-gray-500 text-xs md:text-sm flex-grow">
+                Lorem ipsum dolor sit amet consectetur. Tortor tincidunt
+                turpis arcu sit aenean ac. Euismod pharetra augue.
+              </p>
+              <div class="flex items-center pt-4 border-t border-gray-100">
+                <img class="w-10 h-10 rounded-full object-cover" src="{% static 'images/review.png' %}" alt="Avatar of Mahesh Anaparthy" />
+                <div class="ml-3">
+                  <p class="font-bold text-gray-800 text-sm">
+                    Mahesh Anaparthy
+                  </p>
+                  <p class="text-xs text-gray-400">CEO-UVXYZ Labs</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="lg:h-[280px]"></div>
+
+          <div class="mt-8 flex justify-start items-center gap-3">
+            <button
+              class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-gray-300 text-gray-400 hover:border-[#346e49]">
+              <svg class="w-5 h-5" fill="none" stroke="#346e49" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+            <button
+              class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-gray-300 text-gray-400 hover:border-[#346e49]">
+              <svg class="w-5 h-5" fill="none" stroke="#346e49" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="container mx-auto p-4 md:p-[32px]">
+      <div class="shadow-2xl bg-white rounded-2xl flex flex-col lg:flex-row relative py-[60px]">
+        <div class="absolute inset-0 z-0 opacity-10" style="background-image: url('{% static 'images/bgwomenemp.png' %}'); background-size: cover; background-position: left center;"></div>
+
+        <div class="relative z-10 lg:w-3/5 px-8 flex flex-col justify-center">
+          <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold uppercase leading-tight">
+            <span class="text-[#346e49]">Empowered Women</span><br />
+            <span class="text-[#B32413]">Authentic Flavors.</span>
+          </h2>
+          <p class="mt-4 text-gray-600 max-w-2xl text-xs md:text-base leading-relaxed">
+            Lorem ipsum dolor sit amet consectetur. Ullamcorper risus eu ut
+            nunc. Felis consectetur amet ultrices commodo. Molestie diam
+            varius adipiscing enim ornare. Vestibulum porttitor amet in neque
+            velit.
+          </p>
+          <button
+            class="mt-8 flex items-center justify-center w-auto self-start px-6 py-3 bg-[#346e49] text-white rounded-full text-sm md:text-lg font-medium hover:bg-[#185535] transition-colors duration-200">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+            Shop Now
+          </button>
+        </div>
+
+        <div class="px-4 lg:absolute right-0 -bottom-[22px] z-10 flex items-end justify-center lg:justify-end">
+          <img src="{% static 'images/women empowerment.png' %}" alt="Illustration of a woman cooking" class="object-cover w-[480px]" />
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <footer class="bg-white">
+    <div class="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="bg-[#346e49] text-white flex items-center justify-center gap-4 p-6 rounded-tr-2xl">
+        <div class="bg-white/75 rounded-full p-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
+            <path fill="#346e49"
+              d="m20.487 17.14l-4.065-3.696a1 1 0 0 0-1.391.043l-2.393 2.461c-.576-.11-1.734-.471-2.926-1.66c-1.192-1.193-1.553-2.354-1.66-2.926l2.459-2.394a1 1 0 0 0 .043-1.391L6.859 3.513a1 1 0 0 0-1.391-.087l-2.17 1.861a1 1 0 0 0-.29.649c-.015.25-.301 6.172 4.291 10.766C11.305 20.707 16.323 21 17.705 21c.202 0 .326-.006.359-.008a1 1 0 0 0 .648-.291l1.86-2.171a.997.997 0 0 0-.085-1.39" />
+          </svg>
+        </div>
+        <div>
+          <p class="font-light">Get in Touch</p>
+          <p class="font-bold text-lg">+91 90001 92200</p>
+        </div>
+      </div>
+      <div class="flex items-center justify-center gap-4 p-6">
+        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-[#346e49] rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
+            <path fill="#fff" fill-rule="evenodd"
+              d="M2 2a1 1 0 0 0-1 1v14c0 1.354.897 2.498 2.129 2.872a3 3 0 0 0 5.7.128h6.342a3 3 0 0 0 5.7-.128A3 3 0 0 0 23 17v-4a5 5 0 0 0-5-5h-4V3a1 1 0 0 0-1-1zm13.171 16H14v-8h4a3 3 0 0 1 3 3v4a1 1 0 0 1-.293.707a3 3 0 0 0-5.536.293m-9.878.293a1 1 0 1 1 1.414 1.414a1 1 0 0 1-1.414-1.414M17 19a1 1 0 1 1 2 0a1 1 0 0 1-2 0"
+              clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div>
+          <p class="font-bold text-gray-800">Free Shipping</p>
+          <p class="text-xs text-gray-500">For Order From Rs.499</p>
+        </div>
+      </div>
+      <div class="flex items-center justify-center gap-4 p-6">
+        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-[#346e49] rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
+            <path fill="#fff"
+              d="M5.676 4.257c3.928-3.219 9.733-2.995 13.4.672c3.905 3.905 3.905 10.237 0 14.142s-10.237 3.905-14.142 0a9.99 9.99 0 0 1-2.678-9.304l.077-.313l1.934.51a8 8 0 1 0 3.053-4.45l-.22.166l1.017 1.017l-4.596 1.06l1.06-4.596zM13.005 6v2h2.5v2h-5.5a.5.5 0 0 0-.09.992l.09.008h4a2.5 2.5 0 0 1 0 5h-1v2h-2v-2h-2.5v-2h5.5a.5.5 0 0 0 .09-.992l-.09-.008h-4a2.5 2.5 0 1 1 0-5h1V6a1 1 0 011-1z" />
+          </svg>
+        </div>
+        <div>
+          <p class="font-bold text-gray-800">Satisfied or Refunded</p>
+          <p class="text-xs text-gray-500">Guaranteed Product Warenty</p>
+        </div>
+      </div>
+      <div class="flex items-center justify-center gap-4 p-6">
+        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-[#346e49] rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 24 24">
+            <path fill="#fff"
+              d="M5.676 4.257c3.928-3.219 9.733-2.995 13.4.672c3.905 3.905 3.905 10.237 0 14.142s-10.237 3.905-14.142 0a9.99 9.99 0 0 1-2.678-9.304l.077-.313l1.934.51a8 8 0 1 0 3.053-4.45l-.22.166l1.017 1.017l-4.596 1.06l1.06-4.596zM13.005 6v2h2.5v2h-5.5a.5.5 0 0 0-.09.992l.09.008h4a2.5 2.5 0 0 1 0 5h-1v2h-2v-2h-2.5v-2h5.5a.5.5 0 0 0 .09-.992l-.09-.008h-4a2.5 2.5 0 1 1 0-5h1V6a1 1 0 011-1z" />
+          </svg>
+        </div>
+        <div>
+          <p class="font-bold text-gray-800">100% Safety & Secure</p>
+          <p class="text-xs text-gray-500">Call us Anytime & Anywhere</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative mt-4 overflow-hidden">
+      <div class="absolute inset-0 flex items-center justify-center z-0 -top-40">
+        <img src="{% static 'images/logo.png' %}" class="h-80 opacity-10" alt="Faint Eruvaka Logo Watermark" />
+      </div>
+      <div class="absolute bottom-0 left-0 w-full h-48 z-10">
+        <div class="flex absolute bottom-0">
+          <img src="{% static 'images/cityscape.png' %}" class="h-[214px]" alt="Cityscape silhouette" />
+          <img src="{% static 'images/cityscape.png' %}" class="h-[214px]" alt="Cityscape silhouette" />
+        </div>
+        <img src="{% static 'images/bullock.png' %}" class="absolute bottom-0 left-4 md:left-[5%] w-1/3 md:w-1/4 max-w-xs h-auto z-20"
+          alt="Man on a bullock cart" />
+      </div>
+      <div
+        class="relative z-30 container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 px-6 pt-16 pb-32">
+        <div class="">
+          <img src="{% static 'images/logo.png' %}" class="size-[90px]" alt="Eruvaka Logo" />
+          <p class="text-gray-500 text-sm">
+            Lorem ipsum dolor sit amet consectetur. In nulla porttitor nunc
+            vitae. Non consectetur ornare fac
+          </p>
+        </div>
+        <div class="lg:justify-self-center">
+          <h3 class="font-bold uppercase text-[#B32413]">Navigation</h3>
+          <ul class="mt-4 space-y-2 text-sm text-gray-600">
+            <li><a href="{% url 'home' %}" class="hover:text-[#346e49]">Home</a></li>
+            <li><a href="{% url 'aboutus' %}" class="hover:text-[#346e49]">About</a></li>
+            <li><a href="{% url 'products' %}" class="hover:text-[#346e49]">Products</a></li>
+            <li><a href="{% url 'contactus' %}" class="hover:text-[#346e49]">Contacts Us</a></li>
+          </ul>
+        </div>
+        <div class="lg:justify-self-center">
+          <h3 class="font-bold uppercase text-[#B32413]">Social Media</h3>
+          <ul class="mt-4 space-y-2 text-sm text-gray-600">
+            <li><a href="#" class="hover:text-[#346e49]">Instagram</a></li>
+            <li><a href="#" class="hover:text-[#346e49]">Twitter</a></li>
+            <li><a href="#" class="hover:text-[#346e49]">Facebook</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold uppercase text-[#B32413]">Subscribe</h3>
+          <p class="mt-4 text-sm text-gray-600">
+            Get Updates about regular offers, new Products and more on
+            WhatsApp.
+          </p>
+          <form class="mt-4 flex">
+            <input type="text" placeholder="Enter your Mobile Number"
+              class="text-[14px] w-full px-2 py-2 border border-[#346e49] rounded-l-md focus:outline-none" />
+            <button type="submit"
+              class="bg-[#346e49] text-white px-4 py-2 rounded-r-md font-semibold hover:bg-[#185535]">
+              Subscribe
+            </button>
+          </form>
+        </div>
+        <div class="h-[180px]"></div>
+      </div>
+    </div>
+
+    <div class="text-[#6C6C6C] text-sm">
+      <div class="container mx-auto flex flex-col sm:flex-row justify-around items-center p-4 gap-4">
+        <p>&copy;2025 Eruvaka All rights reserved.</p>
+        <div class="flex items-center gap-2">
+          <img src="{% static 'images/visa.png' %}" class="h-6" alt="Visa" />
+          <img src="{% static 'images/mastercard.png' %}" class="h-6" alt="Mastercard" />
+          <img src="{% static 'images/paypal.png' %}" class="h-6" alt="Paypal" />
+          <img src="{% static 'images/payu.png' %}" class="h-6" alt="Google Pay" />
+        </div>
+        <div class="flex gap-4">
+          <a href="#" class="hover:text-[#346e49]">Terms & Conditions</a>
+          <a href="#" class="hover:text-[#346e49]">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
