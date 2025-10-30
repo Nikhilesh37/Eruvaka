@@ -10,7 +10,7 @@ class blogs(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     author = models.ForeignKey(author, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='..static/images/', null=True)
+    image = models.ImageField(upload_to='blog_images/', null=True, blank=True)
     excerpt = models.TextField(max_length=500, blank=True, help_text="Short description for blog card")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -1,7 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from Home.models import items, category
+from .models import ProductWeight
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
 
 class ProductListView(ListView):
     model = items
@@ -42,6 +46,10 @@ class ProductListView(ListView):
 
 
 class ProductDetailView(DetailView):
+    """
+    Product detail view - all price calculations done server-side
+    Weight variants are pre-processed in context for template rendering
+    """
     model = items
     template_name = 'product_detail.html'
     context_object_name = 'product'
@@ -50,8 +58,63 @@ class ProductDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        
+        # Get related products from the same category
         context['related_products'] = items.objects.filter(
             category=self.object.category
         ).exclude(id=self.object.id)[:4]
+        
+        # Get weight variants for this product from ProductWeight model
+        weight_variants = ProductWeight.objects.filter(product=self.object)
+        context['weight_variants'] = weight_variants
+        
+        # Get default weight or first available weight
+        default_weight = weight_variants.filter(is_default=True).first()
+        if not default_weight:
+            default_weight = weight_variants.first()
+        context['default_weight'] = default_weight
+        
+        # Add selected weight from query params if present
+        selected_weight = self.request.GET.get('weight')
+        if selected_weight:
+            selected_variant = weight_variants.filter(weight=selected_weight).first()
+            if selected_variant:
+                context['selected_weight'] = selected_variant
+        
         return context
+
+
+@require_http_methods(["GET"])
+def get_weight_price(request, product_id, weight):
+    """
+    Django-based endpoint to get price for specific weight
+    This replaces JavaScript-based price updates with server-side logic
+    """
+    try:
+        weight_variant = ProductWeight.objects.get(product_id=product_id, weight=weight)
+        
+        # Calculate savings if old price exists
+        savings = 0
+        if weight_variant.old_price and weight_variant.old_price > weight_variant.price:
+            savings = float(weight_variant.old_price - weight_variant.price)
+        
+        return JsonResponse({
+            'success': True,
+            'price': float(weight_variant.price),
+            'old_price': float(weight_variant.old_price) if weight_variant.old_price else None,
+            'in_stock': weight_variant.in_stock,
+            'discount_percentage': weight_variant.discount_percentage,
+            'savings': savings,
+            'weight': weight_variant.weight
+        })
+    except ProductWeight.DoesNotExist:
+        return JsonResponse({
+            'success': False,
+            'message': 'Weight variant not found'
+        }, status=404)
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'message': str(e)
+        }, status=500)
     

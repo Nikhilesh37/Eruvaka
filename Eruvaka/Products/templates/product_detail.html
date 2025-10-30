@@ -90,11 +90,19 @@
             
             <div class="mb-6">
               <div class="flex items-baseline gap-3">
-                <span class="text-4xl font-bold text-[#B32413]">Rs. {{ product.price }}</span>
-                {% if product.old_price and product.old_price > 0 %}
-                  <span class="text-2xl text-gray-400 line-through">Rs. {{ product.old_price }}</span>
-                  <span class="bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">
-                    Save Rs. {{ product.old_price|add:"-"|add:product.price|floatformat:0 }}
+                <span class="text-4xl font-bold text-[#B32413]" id="current-price">
+                  Rs. {% if default_weight %}{{ default_weight.price }}{% else %}{{ product.price }}{% endif %}
+                </span>
+                {% if default_weight.old_price or product.old_price %}
+                  <span class="text-2xl text-gray-400 line-through" id="old-price">
+                    Rs. {% if default_weight.old_price %}{{ default_weight.old_price }}{% else %}{{ product.old_price }}{% endif %}
+                  </span>
+                  <span class="bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full" id="savings">
+                    {% if default_weight and default_weight.old_price %}
+                      Save Rs. {{ default_weight.old_price|floatformat:2|add:"-"|add:default_weight.price|floatformat:0 }}
+                    {% elif product.old_price and product.old_price > 0 %}
+                      Save Rs. {{ product.old_price|add:"-"|add:product.price|floatformat:0 }}
+                    {% endif %}
                   </span>
                 {% endif %}
               </div>
@@ -111,11 +119,24 @@
                   class="w-20 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#346e49]"
                 />
                 <div class="relative flex-1 max-w-xs">
-                  <select class="block w-full appearance-none rounded-lg border border-gray-300 bg-white py-3 pl-4 pr-10 text-gray-700 shadow-sm focus:border-[#346e49] focus:outline-none focus:ring-2 focus:ring-[#346e49]">
-                    <option>500 gm</option>
-                    <option>1 kg</option>
-                    <option>2 kg</option>
-                    <option>5 kg</option>
+                  <select id="weight-select" class="block w-full appearance-none rounded-lg border border-gray-300 bg-white py-3 pl-4 pr-10 text-gray-700 shadow-sm focus:border-[#346e49] focus:outline-none focus:ring-2 focus:ring-[#346e49]">
+                    {% if weight_variants %}
+                      {% for variant in weight_variants %}
+                        <option value="{{ variant.weight }}" 
+                                data-price="{{ variant.price }}" 
+                                data-old-price="{% if variant.old_price %}{{ variant.old_price }}{% endif %}"
+                                data-in-stock="{{ variant.in_stock }}"
+                                {% if variant.is_default %}selected{% endif %}>
+                          {{ variant.weight }} - Rs. {{ variant.price }}
+                          {% if not variant.in_stock %} (Out of Stock){% endif %}
+                        </option>
+                      {% endfor %}
+                    {% else %}
+                      <option value="500g">500 gm</option>
+                      <option value="1kg">1 kg</option>
+                      <option value="2kg">2 kg</option>
+                      <option value="5kg">5 kg</option>
+                    {% endif %}
                   </select>
                   <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-700">
                     <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -127,7 +148,7 @@
             </div>
             
             <div class="flex gap-4 mb-8">
-              <button class="flex-1 bg-[#346e49] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#2a593a] transition-colors shadow-lg flex items-center justify-center gap-2">
+              <button id="add-to-cart-btn" class="flex-1 bg-[#346e49] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#2a593a] transition-colors shadow-lg flex items-center justify-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
@@ -207,4 +228,72 @@
     </section>
     {% endif %}
   </main>
+  
+  <script>
+  /**
+   * Dynamic weight-based price update for product detail page
+   * Updates price, old price, savings, and stock status when weight changes
+   */
+  document.addEventListener('DOMContentLoaded', function() {
+    const weightSelect = document.getElementById('weight-select');
+    const currentPriceElement = document.getElementById('current-price');
+    const oldPriceElement = document.getElementById('old-price');
+    const savingsElement = document.getElementById('savings');
+    const addToCartBtn = document.getElementById('add-to-cart-btn');
+    
+    if (!weightSelect) return; // Exit if weight select doesn't exist
+    
+    weightSelect.addEventListener('change', function() {
+      const selectedOption = this.options[this.selectedIndex];
+      const price = parseFloat(selectedOption.getAttribute('data-price'));
+      const oldPrice = selectedOption.getAttribute('data-old-price');
+      const inStock = selectedOption.getAttribute('data-in-stock') === 'True';
+      
+      // Update current price
+      if (currentPriceElement && price) {
+        currentPriceElement.textContent = 'Rs. ' + price.toFixed(2);
+      }
+      
+      // Update old price and savings
+      if (oldPrice && parseFloat(oldPrice) > 0) {
+        const oldPriceValue = parseFloat(oldPrice);
+        const savings = oldPriceValue - price;
+        
+        if (oldPriceElement) {
+          oldPriceElement.textContent = 'Rs. ' + oldPriceValue.toFixed(2);
+          oldPriceElement.style.display = 'inline';
+        }
+        
+        if (savingsElement && savings > 0) {
+          savingsElement.textContent = 'Save Rs. ' + savings.toFixed(0);
+          savingsElement.style.display = 'inline-block';
+        }
+      } else {
+        // Hide old price and savings if not applicable
+        if (oldPriceElement) {
+          oldPriceElement.style.display = 'none';
+        }
+        if (savingsElement) {
+          savingsElement.style.display = 'none';
+        }
+      }
+      
+      // Update add to cart button based on stock
+      if (addToCartBtn) {
+        if (!inStock) {
+          addToCartBtn.disabled = true;
+          addToCartBtn.classList.remove('bg-[#346e49]', 'hover:bg-[#2a593a]');
+          addToCartBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
+          addToCartBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg> Out of Stock';
+        } else {
+          addToCartBtn.disabled = false;
+          addToCartBtn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+          addToCartBtn.classList.add('bg-[#346e49]', 'hover:bg-[#2a593a]');
+          addToCartBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg> Add to Cart';
+        }
+      }
+    });
+  });
+  </script>
+
 {% endblock %}

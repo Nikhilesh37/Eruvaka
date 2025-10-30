@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load custom_filters %}
 
 {% block title %}Eruvaka - Home{% endblock %}
 
@@ -28,7 +29,7 @@
           Wherever You Are.
         </p>
 
-        <a href=" "
+        <a href="{% url 'product-list' %}"
           class="inline-flex items-center gap-2 mt-8 bg-[#a50000] hover:bg-[#b30000] px-6 py-3 rounded-full font-medium">
           <span>Shop Now</span>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -179,16 +180,41 @@
                   <div class="p-3">
                     <div class="text-gray-600 text-xs">{{ item.category.name }}</div>
                     <div class="font-bold text-sm mb-2">{{ item.name }}</div>
-                    <select class="w-full border border-gray-300 rounded-md text-xs p-1 mb-2 appearance-none" onclick="event.preventDefault(); event.stopPropagation();">
-                      <option>500 gm</option>
+                    <select class="w-full border border-gray-300 rounded-md text-xs p-1 mb-2 appearance-none" 
+                            data-item-id="{{ item.id }}"
+                            onclick="event.preventDefault(); event.stopPropagation();"
+                            onchange="updatePriceHome(this)">
+                      {% if item.weight_prices %}
+                        {% for weight, prices in item.weight_prices.items %}
+                          <option value="{{ weight }}" 
+                                  data-price="{{ prices.price }}" 
+                                  data-old-price="{{ prices.old_price }}"
+                                  {% if weight == item.default_weight %}selected{% endif %}>
+                            {{ weight }}
+                          </option>
+                        {% endfor %}
+                      {% else %}
+                        <option value="500g">500 gm</option>
+                      {% endif %}
                     </select>
                     <div class="flex items-center justify-between">
-                      {% if item.old_price and item.old_price > 0 %}
-                      <span class="text-gray-500 line-through text-xs">{{ item.old_price }}.00</span>
+                      {% if item.weight_prices %}
+                        {% with default_data=item.weight_prices|get_item:item.default_weight %}
+                          {% if default_data.old_price and default_data.old_price > 0 %}
+                            <span class="text-gray-500 line-through text-xs old-price-{{ item.id }}">Rs.{{ default_data.old_price }}</span>
+                          {% else %}
+                            <span class="text-xs old-price-{{ item.id }}">&nbsp;</span>
+                          {% endif %}
+                          <span class="text-red-600 font-bold text-base current-price-{{ item.id }}">Rs.{{ default_data.price }}</span>
+                        {% endwith %}
                       {% else %}
-                      <span class="text-xs">&nbsp;</span>
+                        {% if item.old_price and item.old_price > 0 %}
+                        <span class="text-gray-500 line-through text-xs old-price-{{ item.id }}">Rs.{{ item.old_price }}</span>
+                        {% else %}
+                        <span class="text-xs old-price-{{ item.id }}">&nbsp;</span>
+                        {% endif %}
+                        <span class="text-red-600 font-bold text-base current-price-{{ item.id }}">Rs.{{ item.price }}</span>
                       {% endif %}
-                      <span class="text-red-600 font-bold text-base">Rs.{{ item.price }}.00</span>
                       <button
                         class="size-6 bg-green-700 rounded-full text-white flex items-center justify-center hover:bg-green-800 transition ml-2"
                         onclick="event.preventDefault(); event.stopPropagation();">
@@ -252,9 +278,9 @@
             Offer Starts from
             <span class="text-green-600 font-bold">Rs.499.99</span>
           </p>
-          <button class="mt-4 bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-red-600 transition">
+          <a href="{% url 'product-list' %}" class="mt-4 bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-red-600 transition inline-block">
             Shop Now
-          </button>
+          </a>
         </div>
 
         <img src="{% static 'images/plate.png' %}" alt="plate" class="absolute right-4 bottom-10 w-[320px] md:w-[360px] object-contain" />
@@ -273,9 +299,9 @@
               Offer Starts from
               <span class="font-semibold text-red-600">Rs.499.99</span>
             </p>
-            <button class="mt-3 bg-red-700 text-white px-5 py-1.5 rounded-full hover:bg-red-800 transition text-sm">
+            <a href="{% url 'product-list' %}" class="mt-3 bg-red-700 text-white px-5 py-1.5 rounded-full hover:bg-red-800 transition text-sm inline-block">
               Shop Now
-            </button>
+            </a>
             <img src="{% static 'images/fruits.png' %}" alt="Amma Pickles" class="w-[130px] md:w-[240px] scroll object-contain self-center" />
           </div>
         </div>
@@ -290,10 +316,10 @@
               <p class="text-sm mt-1">
                 UpTo <span class="font-semibold text-gray-900">20% Off</span>
               </p>
-              <button
-                class="mt-2 bg-white border border-gray-300 text-gray-900 font-semibold px-4 py-1.5 rounded-full hover:bg-gray-200 transition text-sm">
+              <a href="{% url 'product-list' %}"
+                class="mt-2 bg-white border border-gray-300 text-gray-900 font-semibold px-4 py-1.5 rounded-full hover:bg-gray-200 transition text-sm inline-block">
                 Shop Now
-              </button>
+              </a>
             </div>
             <img src="{% static 'images/sweets.png' %}" alt="Fresh Sweets"
               class="absolute -right-10 -top-4 w-[100px] md:w-[160px] object-contain" />
@@ -354,16 +380,41 @@
           <div class="p-3">
             <div class="text-gray-600 text-xs">{{ item.category.name }}</div>
             <div class="font-bold text-sm mb-2">{{ item.name }}</div>
-            <select class="w-full border border-gray-300 rounded-md text-xs p-1 mb-2 appearance-none" onclick="event.preventDefault(); event.stopPropagation();">
-              <option>500 gm</option>
+            <select class="w-full border border-gray-300 rounded-md text-xs p-1 mb-2 appearance-none" 
+                    data-item-id="{{ item.id }}"
+                    onclick="event.preventDefault(); event.stopPropagation();"
+                    onchange="updatePriceHome(this)">
+              {% if item.weight_prices %}
+                {% for weight, prices in item.weight_prices.items %}
+                  <option value="{{ weight }}" 
+                          data-price="{{ prices.price }}" 
+                          data-old-price="{{ prices.old_price }}"
+                          {% if weight == item.default_weight %}selected{% endif %}>
+                    {{ weight }}
+                  </option>
+                {% endfor %}
+              {% else %}
+                <option value="500g">500 gm</option>
+              {% endif %}
             </select>
             <div class="flex items-center justify-between">
-              {% if item.old_price and item.old_price > 0 %}
-              <span class="text-gray-500 line-through text-xs">{{ item.old_price }}.00</span>
+              {% if item.weight_prices %}
+                {% with default_data=item.weight_prices|get_item:item.default_weight %}
+                  {% if default_data.old_price and default_data.old_price > 0 %}
+                    <span class="text-gray-500 line-through text-xs old-price-{{ item.id }}">Rs.{{ default_data.old_price }}</span>
+                  {% else %}
+                    <span class="text-xs old-price-{{ item.id }}">&nbsp;</span>
+                  {% endif %}
+                  <span class="text-red-600 font-bold text-base current-price-{{ item.id }}">Rs.{{ default_data.price }}</span>
+                {% endwith %}
               {% else %}
-              <span class="text-xs">&nbsp;</span>
+                {% if item.old_price and item.old_price > 0 %}
+                <span class="text-gray-500 line-through text-xs old-price-{{ item.id }}">Rs.{{ item.old_price }}</span>
+                {% else %}
+                <span class="text-xs old-price-{{ item.id }}">&nbsp;</span>
+                {% endif %}
+                <span class="text-red-600 font-bold text-base current-price-{{ item.id }}">Rs.{{ item.price }}</span>
               {% endif %}
-              <span class="text-red-600 font-bold text-base">Rs.{{ item.price }}.00</span>
               <button
                 class="size-6 bg-green-700 rounded-full text-white flex items-center justify-center hover:bg-green-800 transition ml-2"
                 onclick="event.preventDefault(); event.stopPropagation();">
@@ -448,13 +499,33 @@
                   <div class="text-gray-600 font-semibold text-xs mb-1">{{ item.category.name }}</div>
                   <div class="text-gray-900 font-bold text-base mb-2 line-clamp-1">{{ item.name }}</div>
                   <div class="flex items-center justify-between gap-2 mb-2">
-                    <select class="flex-1 border border-gray-300 rounded-md text-sm p-2 appearance-none bg-white" onclick="event.preventDefault(); event.stopPropagation();">
-                      <option>500 gm</option>
-                      <option>1 kg</option>
+                    <select class="flex-1 border border-gray-300 rounded-md text-sm p-2 appearance-none bg-white" 
+                            data-item-id="{{ item.id }}"
+                            onclick="event.preventDefault(); event.stopPropagation();"
+                            onchange="updatePriceHome(this)">
+                      {% if item.weight_prices %}
+                        {% for weight, prices in item.weight_prices.items %}
+                          <option value="{{ weight }}" 
+                                  data-price="{{ prices.price }}" 
+                                  data-old-price="{{ prices.old_price }}"
+                                  {% if weight == item.default_weight %}selected{% endif %}>
+                            {{ weight }}
+                          </option>
+                        {% endfor %}
+                      {% else %}
+                        <option value="500g">500 gm</option>
+                        <option value="1kg">1 kg</option>
+                      {% endif %}
                     </select>
                   </div>
                   <div class="flex items-center justify-between pb-2">
-                    <span class="text-red-600 font-bold text-lg">Rs.{{ item.price }}.00</span>
+                    {% if item.weight_prices %}
+                      {% with default_data=item.weight_prices|get_item:item.default_weight %}
+                        <span class="text-red-600 font-bold text-lg current-price-{{ item.id }}">Rs.{{ default_data.price }}</span>
+                      {% endwith %}
+                    {% else %}
+                      <span class="text-red-600 font-bold text-lg current-price-{{ item.id }}">Rs.{{ item.price }}</span>
+                    {% endif %}
                     <button class="size-8 bg-green-700 rounded-full text-white flex items-center justify-center hover:bg-green-800 transition" onclick="event.preventDefault(); event.stopPropagation();">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -484,7 +555,7 @@
               </h1>
               <p class="text-2xl font-semibold text-[#F69512]">Spices</p>
 
-              <a href="#" class="inline-flex items-center justify-center mt-5 px-8 py-2 bg-[#B32413] border border-[#C75F01] text-white font-semibold rounded-full transition duration-300 text-sm">
+              <a href="{% url 'product-list' %}" class="inline-flex items-center justify-center mt-5 px-8 py-2 bg-[#B32413] border border-[#C75F01] text-white font-semibold rounded-full transition duration-300 text-sm">
                 <span class="mr-2">→</span> Shop Now
               </a>
               <img src="{% static 'images/ingredients.png' %}" alt="" class="max-w-80 absolute -left-27 -bottom-72">
@@ -495,6 +566,36 @@
     </div>
   </section>
 
-  
+  <script>
+  /**
+   * Update product price when weight selection changes
+   * This function handles dynamic price updates for weight variants
+   */
+  function updatePriceHome(selectElement) {
+    // Get the selected option and its data attributes
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    const price = selectedOption.getAttribute('data-price');
+    const oldPrice = selectedOption.getAttribute('data-old-price');
+    const itemId = selectElement.getAttribute('data-item-id');
+    
+    // Find the price elements for this product
+    const currentPriceElement = document.querySelector('.current-price-' + itemId);
+    const oldPriceElement = document.querySelector('.old-price-' + itemId);
+
+    if (currentPriceElement && price) {
+      currentPriceElement.textContent = 'Rs.' + price;
+    }
+    
+    // Update old price if element exists
+    if (oldPriceElement) {
+      if (oldPrice && oldPrice !== '0' && oldPrice !== 'None' && oldPrice !== 'null') {
+        oldPriceElement.textContent = 'Rs.' + oldPrice;
+        oldPriceElement.style.display = 'inline';
+      } else {
+        oldPriceElement.style.display = 'none';
+      }
+    }
+  }
+  </script>
 
 {% endblock %}
